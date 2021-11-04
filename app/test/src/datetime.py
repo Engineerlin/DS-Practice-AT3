@@ -12,8 +12,7 @@ class DateColumn:
     """
     Return name of selected column
     """
-    self.col_name=list(self.select_dtypes(['datetime64']).columns)
-    return self.col_name
+    return None
 
   def get_unique(self):
     """

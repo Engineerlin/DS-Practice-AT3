@@ -1,4 +1,3 @@
-# To be filled by students
 import streamlit as st
 from dataclasses import dataclass
 import pandas as pd
@@ -37,7 +36,7 @@ class Dataset:
     """
       Return dictionary with column name as keys and data type as values
     """
-    return self.df.dtypes.apply(lamda x:x.name).to_dict()
+    return self.df.dtypes.apply(lambda x:x.name).to_dict()
 
   def get_n_duplicates(self):
     """
@@ -55,25 +54,25 @@ class Dataset:
     """
       Return Pandas Dataframe with top rows of loaded dataset
     """
-    return self.df.head()
+    return self.df.head(n)
 
   def get_tail(self, n=5):
     """
       Return Pandas Dataframe with bottom rows of loaded dataset
     """
-    return self.df.tail(5)
+    return self.df.tail(n)
 
   def get_sample(self, n=5):
     """
       Return Pandas Dataframe with random sampled rows of loaded dataset
     """
-    return self.df.sample(5)
+    return self.df.sample(n)
 
   def get_numeric_columns(self):
     """
       Return list column names of numeric type from loaded dataset
     """
-    return list(self.select_dtypes(['float']).columns)
+    return list(self.df.select_dtypes(['float']).columns)
 
   def get_text_columns(self):
     """
