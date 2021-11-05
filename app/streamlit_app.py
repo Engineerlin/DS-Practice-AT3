@@ -30,6 +30,8 @@ def exploredata(file):
     st.dataframe(dat.get_head(n_row_disp))
     st.subheader('Bottom Rows of Table')
     st.dataframe(dat.get_tail(n_row_disp))
+    st.subhead('Random Sample Rows of Table')
+    st.dataframe(dat.get_sample(n_row_disp))
     sel_box=st.multiselect('Which columns do you want to convert to dates',col_list)
     for i in sel_box:
         dat.df[i]=dat.df[i].astype('datetime64[ns]')
