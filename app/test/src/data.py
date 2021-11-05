@@ -78,11 +78,11 @@ class Dataset:
     """
       Return list column names of text type from loaded dataset
     """
-    return list(self.select_dtypes(['object']).columns)
+    return list(self.df.select_dtypes(['object']).columns)
 
   def get_date_columns(self):
     """
       Return list column names of datetime type from loaded dataset
     """
-    return list(self.select_dtypes(['datetime64']).columns)
+    return list(self.df.select_dtypes(['datetime64']).columns)
 
