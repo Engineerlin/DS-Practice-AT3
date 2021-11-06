@@ -38,24 +38,24 @@ def explore_data(file):
 def explore_numeric(dff):
     st.header('2. Numeric Column Information')
     num_cols = dff.select_dtypes(include='number').columns
-    num_colsdf = dff.select_dtypes(include='number')
+    num_cols_df = dff.select_dtypes(include='number')
     name = num_cols
-    numeric = NumericColumn(name, num_colsdf)
-    colindex = 0
+    numeric = NumericColumn(name, num_cols_df)
+    col_index = 0
 
     for col in range(len(num_cols)):
-        colname = numeric.get_name()[col]
-        st.subheader(f'2.{colindex} Field Name: **_{colname}_**')
-        colindex = colindex + 1
+        col_names = numeric.get_name()[col]
+        st.subheader(f'2.{col_index} Field Name: **_{col_names}_**')
+        col_index = col_index + 1
         unique = numeric.get_unique().iloc[col]
         missing = numeric.get_missing().iloc[col]
         zero = numeric.get_zeros().iloc[col]
         negative = numeric.get_negatives().iloc[col]
         average = numeric.get_mean().iloc[col]
-        stdev = numeric.get_std().iloc[col]
-        minval = numeric.get_min().iloc[col]
-        maxval = numeric.get_max().iloc[col]
-        medval = numeric.get_median().iloc[col]
+        st_dev = numeric.get_std().iloc[col]
+        min_val = numeric.get_min().iloc[col]
+        max_val = numeric.get_max().iloc[col]
+        med_val = numeric.get_median().iloc[col]
         d = {' ': ["Number of Unique Values:",
                    "Number of rows with missing values:",
                    "Number of rows with 0:", "Number of rows with Negative values:",
@@ -64,11 +64,14 @@ def explore_numeric(dff):
                    "Minimum Value:",
                    "Maximum Value:",
                    "Median Value:"],
-             'Value': [unique, missing, zero, negative, average, stdev, minval, maxval, medval]}
-        st.dataframe(pd.DataFrame(d))
-        st.markdown('**Histogram**')
-        st.write(numeric.get_histogram(colname))
-        frequent = numeric.get_frequent(colname)
+             'Value': [unique, missing, zero, negative, average, st_dev, min_val, max_val, med_val]}
+        df_field = pd.DataFrame(d)
+        df_field2 = df_field.assign(hack='').set_index('hack')
+        st.dataframe(data=df_field2, width=500)
+        st.subheader('**Histogram**')
+        st.write(numeric.get_histogram(col_names))
+        frequent = numeric.get_frequent(col_names)
+        st.subheader('**Most Frequent Values**')
         st.dataframe(frequent)
 
 
