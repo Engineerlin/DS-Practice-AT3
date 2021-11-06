@@ -79,8 +79,8 @@ class NumericColumn:
         """
 
         df_histogram = pd.DataFrame(self.serie)
-        histogramcol = alt.Chart(df_histogram).mark_bar().encode(alt.X(column, bin=True), y='count()')
-        #histogramcol = alt.Chart(df_histogram).mark_bar().encode(alt.X(self.col_name, bin = alt.Bin(maxbins=50)),y='count()')
+        #histogramcol = alt.Chart(df_histogram).mark_bar().encode(alt.X(column, bin=True), y='count()')
+        histogramcol = alt.Chart(df_histogram).mark_bar().encode(alt.X(column, bin=alt.Bin(maxbins=50)),y='count()')
         return histogramcol
 
     def get_frequent(self,column):
@@ -89,7 +89,7 @@ class NumericColumn:
         """
 
         data = pd.DataFrame(self.serie[column])
-        top20 = data.groupby([column]).size().reset_index(name = 'Occurrence').sort_values(by = 'Occurrence', ascending = False)
+        top20 = data.groupby([column]).size().reset_index(name = 'Occurrence').sort_values(by='Occurrence', ascending=False)
         top20.index = np.arange(1, len(top20) + 1)
         top20['Percentage'] = top20['Occurrence']/sum(top20['Occurrence'])
         return top20.head(20)
